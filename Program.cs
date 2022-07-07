@@ -13,15 +13,15 @@ namespace TextEditor
         static void Menu()
         {
             Console.Clear();
-            Console.WriteLine("Você acessou o editor de textos :)");
+            Console.WriteLine("Você acessou o editor de textos");
             Console.WriteLine("");
 
-            Console.WriteLine("Selecione a opção que deseja realizar:");
+            Console.WriteLine("Oque gostaria de realizar?");
             Console.WriteLine("");
 
-            Console.WriteLine("0 - Sair.");
-            Console.WriteLine("1 - Abrir arquivo.");
-            Console.WriteLine("2 - Editar arquivo.");
+            Console.WriteLine("0 - Sair");
+            Console.WriteLine("1 - Abrir arquivo");
+            Console.WriteLine("2 - Editar arquivo");
             Console.WriteLine("");
 
             short option = short.Parse(Console.ReadLine());
@@ -33,13 +33,24 @@ namespace TextEditor
                 case 2: Editar(); break;
                 default: Menu(); break;
             }
-
-            
         }
 
         static void Abrir()
         {
+            Console.Clear();
+            Console.WriteLine("Qual o caminho do arquivo que deseja abrir?");
+            Console.WriteLine("");
+            string path = Console.ReadLine();
 
+            using (var file = new StreamReader(path))
+            {
+                string text = file.ReadToEnd();
+                Console.WriteLine(text);
+            }
+            
+            Console.WriteLine("");
+            Console.ReadLine();
+            Menu();
         }
 
         static void Editar()
@@ -48,14 +59,13 @@ namespace TextEditor
             Console.WriteLine("Você acessou a opção: Editar.");
             Console.WriteLine("");
 
-            Console.WriteLine("Digite seu texto abaixo. (ESC PARA SAIR)");
-            Console.WriteLine("");
+            Console.WriteLine("Digite seu texto abaixo. (ESC para sair)");
             string text = "";
 
             do
             {
-                text += Console.ReadLine();
-                text += Environment.NewLine;
+            text += Console.ReadLine();
+            text += Environment.NewLine;
             }
 
             while (Console.ReadKey().Key != ConsoleKey.Escape);
@@ -68,23 +78,23 @@ namespace TextEditor
             Console.WriteLine("Onde deseja salvar seu arquivo?");
             Console.WriteLine("");
 
-            var path = Console.ReadLine();
+            var path =  Console.ReadLine();
 
             using (var file = new StreamWriter(path))
             {
                 file.Write(text);
             }
 
-            Console.WriteLine($"O arquivo foi salvo em {path} com sucesso!");
+            Console.WriteLine($"Arquivo salvo em {path} com sucesso!");
             Console.ReadLine();
-            Console.WriteLine("");
             Menu();
         }
 
         static void Sair()
         {
             Console.Clear();
-            Console.WriteLine("Obrigado por usar o editor :)");
+            Console.WriteLine("");
+            Console.WriteLine("Obrigado por usar o editor de textos :)");
             Console.WriteLine("");
             System.Environment.Exit(0);
         }
